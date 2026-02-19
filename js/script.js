@@ -165,3 +165,139 @@ if (statsSection) {
     
     observer.observe(statsSection);
 }
+
+// ── MOBILE NAV MENU ──────────────────────────────────────────
+// Added below - shows all nav links in a fullscreen overlay on mobile
+document.addEventListener('DOMContentLoaded', function () {
+
+    var nav = document.querySelector('nav');
+    var navLinks = document.querySelector('.nav-links');
+    if (!nav || !navLinks) return;
+
+    // Create hamburger button
+    var btn = document.createElement('button');
+    btn.setAttribute('aria-label', 'Toggle navigation');
+    btn.innerHTML = '<span></span><span></span><span></span>';
+    btn.style.cssText = [
+        'display: none',
+        'flex-direction: column',
+        'justify-content: center',
+        'gap: 5px',
+        'width: 40px',
+        'height: 40px',
+        'background: none',
+        'border: none',
+        'cursor: pointer',
+        'padding: 6px',
+        'margin-left: auto',
+        'flex-shrink: 0'
+    ].join(';');
+
+    // Style the 3 spans
+    btn.querySelectorAll('span').forEach(function (s) {
+        s.style.cssText = 'display:block;width:22px;height:2px;background:#1e293b;border-radius:2px;transition:all 0.3s ease;';
+    });
+
+    nav.appendChild(btn);
+
+    // Create fullscreen overlay
+    var overlay = document.createElement('div');
+    overlay.style.cssText = [
+        'display: none',
+        'position: fixed',
+        'top: 0',
+        'left: 0',
+        'right: 0',
+        'bottom: 0',
+        'background: rgba(255,255,255,0.98)',
+        'z-index: 9999',
+        'flex-direction: column',
+        'align-items: center',
+        'justify-content: center',
+        'gap: 2rem'
+    ].join(';');
+
+    // Close × button
+    var closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '&times;';
+    closeBtn.style.cssText = [
+        'position: absolute',
+        'top: 1.25rem',
+        'right: 1.5rem',
+        'background: none',
+        'border: none',
+        'font-size: 2.5rem',
+        'cursor: pointer',
+        'color: #475569',
+        'line-height: 1'
+    ].join(';');
+    overlay.appendChild(closeBtn);
+
+    // Copy all nav links into overlay
+    navLinks.querySelectorAll('li').forEach(function (li) {
+        var anchor = li.querySelector('a');
+        if (!anchor) return;
+        var a = document.createElement('a');
+        a.href = anchor.getAttribute('href');
+        a.textContent = anchor.textContent.trim();
+        a.style.cssText = [
+            'font-size: 1.6rem',
+            'font-weight: 700',
+            'color: #1e293b',
+            'text-decoration: none',
+            'font-family: Poppins, Inter, sans-serif'
+        ].join(';');
+        a.addEventListener('mouseenter', function () { a.style.color = '#0f4c81'; });
+        a.addEventListener('mouseleave', function () { a.style.color = '#1e293b'; });
+        overlay.appendChild(a);
+    });
+
+    document.body.appendChild(overlay);
+
+    // Show/hide hamburger based on screen width
+    function checkWidth() {
+        if (window.innerWidth <= 968) {
+            btn.style.display = 'flex';
+            navLinks.style.display = 'none';
+        } else {
+            btn.style.display = 'none';
+            navLinks.style.display = '';
+            closeOverlay();
+        }
+    }
+
+    function openOverlay() {
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        var spans = btn.querySelectorAll('span');
+        if (spans[0]) spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        if (spans[1]) spans[1].style.opacity = '0';
+        if (spans[2]) spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    }
+
+    function closeOverlay() {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+        var spans = btn.querySelectorAll('span');
+        if (spans[0]) spans[0].style.transform = '';
+        if (spans[1]) spans[1].style.opacity = '1';
+        if (spans[2]) spans[2].style.transform = '';
+    }
+
+    btn.addEventListener('click', function () {
+        overlay.style.display === 'flex' ? closeOverlay() : openOverlay();
+    });
+
+    closeBtn.addEventListener('click', closeOverlay);
+
+    overlay.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', closeOverlay);
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeOverlay();
+    });
+
+    window.addEventListener('resize', checkWidth);
+    checkWidth();
+});
