@@ -807,16 +807,6 @@ footer::before {
     z-index: 1;
 }
 
-/* Responsive */
-@media (max-width: 968px) {
-    .hero h1 { font-size: 2.5rem; }
-    .services-grid, .why-grid, .industries-grid { grid-template-columns: 1fr; }
-    .mission-vision, .contact-content { grid-template-columns: 1fr; }
-    .value-strip { grid-template-columns: 1fr; }
-    nav { flex-direction: column; gap: 2rem; }
-    .nav-links { margin-left: 0; gap: 1.5rem; }
-}
-
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -824,7 +814,6 @@ footer::before {
 
 /* IMAGE STYLES */
 
-/* Hero Image */
 .hero-image {
     position: absolute;
     top: 0;
@@ -842,7 +831,6 @@ footer::before {
     opacity: 0.3;
 }
 
-/* About Images */
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -890,7 +878,6 @@ footer::before {
     max-width: 100%;
 }
 
-/* Service Images */
 .service-image {
     width: 100%;
     height: 200px;
@@ -910,7 +897,6 @@ footer::before {
     transform: scale(1.1);
 }
 
-/* Industry Images */
 .industry-image {
     width: 100%;
     height: 150px;
@@ -930,7 +916,6 @@ footer::before {
     transform: scale(1.05);
 }
 
-/* Company Showcase */
 .company-showcase {
     max-width: 900px;
     margin: 0 auto 4rem;
@@ -945,7 +930,6 @@ footer::before {
     display: block;
 }
 
-/* Contact Background Image */
 .contact-bg-image {
     position: absolute;
     top: 0;
@@ -963,41 +947,12 @@ footer::before {
     opacity: 0.15;
 }
 
-/* Responsive Images */
-@media (max-width: 968px) {
-    .about-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .about-images {
-        order: -1;
-    }
-    
-    .about-image-main {
-        height: 300px;
-    }
-    
-    .about-image-secondary {
-        height: 200px;
-    }
-    
-    .service-image {
-        height: 180px;
-    }
-    
-    .industry-image {
-        height: 120px;
-    }
-}
-
 /* CUSTOM LAYOUT CHANGES */
 
-/* 1. LARGER LOGO IN HEADER */
 .logo-large img {
     height: 150px !important;
 }
 
-/* 2. ABOUT SECTION REDESIGN */
 .about-redesign .about-content-new {
     display: flex;
     flex-direction: column;
@@ -1050,54 +1005,214 @@ footer::before {
     margin-top: 2rem;
 }
 
-/* 3. SERVICES GRID FOR 5 ITEMS */
 .services-grid-extended {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
-.services-grid-extended .service-card:nth-child(4),
-.services-grid-extended .service-card:nth-child(5) {
-    grid-column: auto;
-}
-
-.services-grid-extended .service-card:nth-child(4) {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.services-grid-extended .service-card:nth-child(5) {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Make 4th and 5th cards centered in their row */
 @media (min-width: 969px) {
     .services-grid-extended {
         grid-template-columns: repeat(3, 1fr);
     }
-    
     .services-grid-extended .service-card:nth-child(4) {
         grid-column: 1 / 2;
     }
-    
     .services-grid-extended .service-card:nth-child(5) {
         grid-column: 2 / 3;
     }
 }
 
-/* Responsive About Section */
+/* ============================================
+   RESPONSIVE MEDIA QUERIES
+   ============================================ */
+
+/* Hamburger button */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #1e293b;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-btn.is-open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger-btn.is-open span:nth-child(2) { opacity: 0; }
+.hamburger-btn.is-open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile nav overlay */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.mobile-nav.is-open { display: flex; }
+
+.mobile-nav a {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1e293b;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    transition: color 0.2s;
+}
+
+.mobile-nav a:hover { color: var(--primary-blue); }
+
+.mobile-nav-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #475569;
+    line-height: 1;
+}
+
+/* ── Tablet (max 1100px) ── */
+@media (max-width: 1100px) {
+    .industries-grid { grid-template-columns: repeat(3, 1fr); }
+
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+    }
+
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-brand img { height: 100px; }
+}
+
+/* ── Tablet / Mobile (max 968px) ── */
 @media (max-width: 968px) {
-    .logo-large img {
-        height: 100px !important;
+    /* Show hamburger, hide desktop nav */
+    .hamburger-btn { display: flex; }
+    .nav-links { display: none !important; }
+
+    nav {
+        flex-direction: row !important;
+        gap: 0 !important;
+        padding: 0.5rem 1.25rem !important;
+        justify-content: space-between;
+        align-items: center;
     }
-    
-    .about-redesign .mission-vision {
-        grid-template-columns: 1fr;
+
+    .logo-large img { height: 70px !important; }
+    .logo img { height: 70px; }
+
+    /* Hero */
+    .hero { margin-top: 80px; min-height: 80vh; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-description { font-size: 1.05rem; }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
-    
-    .services-grid-extended {
-        grid-template-columns: 1fr;
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
     }
+
+    /* Value strip */
+    .value-strip { grid-template-columns: 1fr; gap: 1rem; padding: 2rem 0; }
+
+    /* Section title */
+    .section-title { font-size: 2rem; }
+
+    /* About */
+    .about-content { grid-template-columns: 1fr; }
+    .about-images { order: -1; }
+    .about-image-main { height: 280px; }
+    .about-image-secondary { height: 200px; }
+    .about-redesign .mission-vision { grid-template-columns: 1fr; }
+    .mission-vision { grid-template-columns: 1fr; }
+
+    /* Services */
+    .services-grid { grid-template-columns: 1fr; }
+    .services-grid-extended { grid-template-columns: 1fr !important; }
+    .services-grid-extended .service-card:nth-child(4),
+    .services-grid-extended .service-card:nth-child(5) { grid-column: auto !important; }
+
+    /* Industries */
+    .industries-grid { grid-template-columns: repeat(2, 1fr); }
+    .industry-image { height: 120px; }
+
+    /* Why Us */
+    .why-grid { grid-template-columns: 1fr; }
+
+    /* Contact */
+    .contact-content { grid-template-columns: 1fr; }
+
+    /* Footer */
+    .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-brand { grid-column: auto; }
+    .footer-brand img { height: 80px; }
+    footer { padding: 3rem 1.25rem 1.5rem; }
+}
+
+/* ── Mobile (max 600px) ── */
+@media (max-width: 600px) {
+    section { padding: 4rem 0; }
+    .container { padding: 0 1.25rem; }
+
+    .hero h1 { font-size: 1.8rem; }
+    .hero-description { font-size: 0.95rem; }
+    .feature-item { font-size: 0.95rem; padding: 0.75rem 1rem; }
+
+    .section-title { font-size: 1.6rem; }
+
+    .mv-card { padding: 1.5rem; }
+    .mv-card h3 { font-size: 1.3rem; }
+
+    .service-card { padding: 1.5rem; }
+    .service-card h3 { font-size: 1.2rem; }
+
+    .why-card { padding: 1.75rem; }
+    .why-card h3 { font-size: 1.2rem; }
+    .why-number { font-size: 3.5rem; }
+
+    .industries-grid { grid-template-columns: 1fr 1fr; }
+    .industry-card { padding: 1.25rem 1rem; }
+    .industry-icon { font-size: 2.5rem; }
+
+    .value-number, .value-icon { font-size: 2rem; }
+
+    .company-showcase { margin-bottom: 2.5rem; }
+}
+
+/* ── Small mobile (max 400px) ── */
+@media (max-width: 400px) {
+    .industries-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.55rem; }
+    .section-title { font-size: 1.4rem; }
 }
