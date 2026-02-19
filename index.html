@@ -4,38 +4,836 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dhavamani Technologies | IT Service</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style-with-images.css">
-<style>
-   /* Logo Perfect Fit - No Spaces */
-   nav {
-       padding: 0.3rem 2rem !important;
-   }
-   
-   .logo-large {
-       margin: 0 !important;
-       padding: 0 !important;
-       line-height: 0 !important;
-   }
-   
-   .logo-large img {
-       height: 130px !important;
-       display: block !important;
-       margin: 0 !important;
-       padding: 0 !important;
-   }
-   
-   header {
-       padding: 0 !important;
-   }
-   </style>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e3a8a;
+            --primary-light: #3b82f6;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --dark2: #1e293b;
+            --mid: #334155;
+            --light: #f1f5f9;
+            --lighter: #f8fafc;
+            --white: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAV ─── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo img {
+            height: 60px;
+            display: block;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--mid);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .nav-links h3 { font-size: inherit; font-weight: inherit; }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border: none;
+            background: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* Mobile nav */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu a:hover { color: var(--primary); }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.25;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(29,78,216,0.6) 100%);
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem 3rem;
+        }
+
+        .hero-content { max-width: 680px; }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59,130,246,0.2);
+            border: 1px solid rgba(59,130,246,0.4);
+            color: #93c5fd;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        .feature-item svg { color: #34d399; flex-shrink: 0; }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.85rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(29,78,216,0.4);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.85rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Value strip */
+        .value-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            margin-top: 4rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .value-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .value-number {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .value-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* ─── SECTIONS SHARED ─── */
+        section { position: relative; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: #eff6ff;
+            color: var(--primary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        /* ─── ABOUT ─── */
+        .about { background: var(--lighter); }
+
+        .about-main p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .about-partner-section {
+            margin: 2.5rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            max-height: 360px;
+        }
+
+        .about-partner-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .mv-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .mv-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .mv-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .mv-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .mv-card p { color: var(--text-light); font-size: 0.95rem; }
+
+        .about-cta { text-align: center; margin-top: 2rem; }
+
+        /* ─── SERVICES ─── */
+        .services { background: var(--white); }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Last row: 2 cards centered */
+        .services-grid .service-card:nth-child(4),
+        .services-grid .service-card:nth-child(5) {
+            grid-column: span 1;
+        }
+
+        .services-grid-extended {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Center last 2 items */
+        .services-grid-extended::after {
+            content: '';
+        }
+
+        .service-card {
+            background: var(--lighter);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
+            border-color: #bfdbfe;
+        }
+
+        .service-image {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .service-card:hover .service-image img { transform: scale(1.05); }
+
+        .service-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* For cards without .service-body wrapper, apply padding directly */
+        .service-card > .service-icon,
+        .service-card > h3,
+        .service-card > p,
+        .service-card > ul,
+        .service-card > a {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .service-icon {
+            width: 52px;
+            height: 52px;
+            background: #eff6ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0 1rem 1.5rem;
+            color: var(--primary);
+        }
+
+        .service-card > h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .service-card > p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            flex: 1;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .service-features li {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-features li::before {
+            content: '→';
+            color: var(--primary);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .service-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+            transition: all 0.2s;
+        }
+
+        .service-link:hover {
+            background: #eff6ff;
+            color: var(--primary-dark);
+        }
+
+        /* ─── INDUSTRIES ─── */
+        .industries { background: var(--lighter); }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.25rem;
+        }
+
+        .industry-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .industry-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: #bfdbfe;
+        }
+
+        .industry-image {
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .industry-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .industry-card:hover .industry-image img { transform: scale(1.08); }
+
+        .industry-icon {
+            font-size: 1.75rem;
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .industry-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--dark);
+            padding: 0 1rem 1.25rem;
+        }
+
+        /* ─── WHY US ─── */
+        .why-us { background: var(--dark); }
+        .why-us .section-tag { background: rgba(59,130,246,0.15); color: #93c5fd; }
+        .why-us .section-title { color: var(--white); }
+
+        .company-showcase {
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+            max-height: 380px;
+        }
+
+        .company-showcase img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .why-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .why-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(59,130,246,0.4);
+            transform: translateY(-4px);
+        }
+
+        .why-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: rgba(59,130,246,0.3);
+            margin-bottom: 0.75rem;
+        }
+
+        .why-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+
+        .why-card p { color: #94a3b8; font-size: 0.9rem; }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #020617;
+            color: #94a3b8;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+        }
+
+        .footer-brand img {
+            height: 50px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .footer-brand p {
+            font-size: 0.875rem;
+            line-height: 1.7;
+            color: #64748b;
+        }
+
+        .footer-column h4 {
+            font-family: 'Sora', sans-serif;
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+        .footer-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: #93c5fd; }
+
+        .footer-links li { font-size: 0.875rem; color: #64748b; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem;
+            font-size: 0.8rem;
+            color: #334155;
+        }
+
+        /* ─── RESPONSIVE ─── */
+
+        /* Tablets (max 1024px) */
+        @media (max-width: 1024px) {
+            .industries-grid { grid-template-columns: repeat(3, 1fr); }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .footer-brand { grid-column: 1 / -1; }
+        }
+
+        /* Tablets (max 768px) */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+
+            .hero .container { padding: 3rem 1.25rem 2.5rem; }
+
+            .value-strip {
+                grid-template-columns: repeat(3, 1fr);
+                margin-top: 2.5rem;
+            }
+
+            .value-item { padding: 1rem 0.75rem; }
+
+            .services-grid,
+            .services-grid-extended {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-vision { grid-template-columns: 1fr; }
+
+            .industries-grid { grid-template-columns: repeat(2, 1fr); }
+
+            .why-grid { grid-template-columns: 1fr; }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2.5rem 1.25rem 1.5rem;
+            }
+        }
+
+        /* Mobile (max 480px) */
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.85rem; }
+            .hero-description { font-size: 0.95rem; }
+
+            .hero-buttons { flex-direction: column; }
+            .btn-primary, .btn-secondary { text-align: center; }
+
+            .value-strip { grid-template-columns: 1fr; }
+            .value-item { border-top: 1px solid rgba(255,255,255,0.1); }
+            .value-item:first-child { border-top: none; }
+
+            .industries-grid { grid-template-columns: 1fr 1fr; }
+
+            .container { padding: 3.5rem 1.25rem; }
+
+            .section-title { font-size: 1.6rem; }
+
+            .company-showcase { max-height: 220px; }
+
+            .footer-content { padding: 2rem 1.25rem 1rem; }
+        }
+
+        /* Fix service card layout for non-wrapped children */
+        .service-card {
+            position: relative;
+        }
+
+        .service-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Center last 2 service cards in 3-col grid */
+        @media (min-width: 769px) {
+            .services-grid-extended {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .services-grid-extended .service-card:nth-child(1) { grid-column: span 2; }
+            .services-grid-extended .service-card:nth-child(2) { grid-column: span 2; }
+            .services-grid-extended .service-card:nth-child(3) { grid-column: span 2; }
+            .services-grid-extended .service-card:nth-child(4) { grid-column: 2 / span 2; }
+            .services-grid-extended .service-card:nth-child(5) { grid-column: span 2; }
+        }
+
+        /* Scroll fade-in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
+
+    <!-- HEADER -->
     <header>
         <nav>
-            <div class="logo logo-large">
-                <img src="images/dhavamani-logo-transparent.png" alt="Dhavamani Technologies">
+            <div class="logo">
+                <img src="images/dhavamani-logo-transparent.png" alt="Dhavamani Technologies" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:#1d4ed8\'>Dhavamani Technologies</span>'">
             </div>
             <ul class="nav-links">
                 <li><a href="#home"><h3>Home</h3></a></li>
@@ -45,28 +843,42 @@
                 <li><a href="#why-us"><h3>Why Us</h3></a></li>
                 <li><a href="#contact"><h3>Contact</h3></a></li>
             </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
+    <!-- MOBILE MENU -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="#home" class="mobile-link">Home</a>
+        <a href="#about" class="mobile-link">About</a>
+        <a href="#services" class="mobile-link">Services</a>
+        <a href="#industries" class="mobile-link">Industries</a>
+        <a href="#why-us" class="mobile-link">Why Us</a>
+        <a href="#contact" class="mobile-link">Contact</a>
+    </nav>
+
+    <!-- HERO -->
     <section id="home" class="hero">
-        <div class="animated-bg"></div>
         <div class="hero-image">
             <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop&q=80" alt="Team Collaboration" crossorigin="anonymous">
         </div>
+        <div class="hero-overlay"></div>
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content fade-in">
                 <div class="hero-tag">3+ Years of IT Delivery Experience</div>
                 <h1>Build Secure, High-Performing Digital Systems</h1>
                 <p class="hero-description">We help enterprises improve software quality, secure IT infrastructure, and ship features faster with smart automation.</p>
                 <div class="hero-features">
                     <div class="feature-item">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>Test Automation that speeds up releases</span>
                     </div>
                     <div class="feature-item">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>Software Development and DevOps that scale</span>
@@ -77,9 +889,9 @@
                     <a href="#services" class="btn-secondary">Our Services</a>
                 </div>
             </div>
-            <div class="value-strip">
+            <div class="value-strip fade-in" style="transition-delay:0.2s">
                 <div class="value-item">
-                    <div class="value-number">16 Years </div>
+                    <div class="value-number">16 Years</div>
                     <div class="value-label">Of Experience with expert team</div>
                 </div>
                 <div class="value-item">
@@ -87,68 +899,63 @@
                     <div class="value-label">End-to-end support</div>
                 </div>
                 <div class="value-item">
-                    <div class="value-number">48 hours</div>
-                    <div class="value-label">Rapid deployment live in under</div>
+                    <div class="value-number">48 hrs</div>
+                    <div class="value-label">Rapid deployment turnaround</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="about about-redesign">
-        <div class="animated-bg"></div>
+    <!-- ABOUT -->
+    <section id="about" class="about">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <div class="section-tag">Who We Are</div>
                 <h2 class="section-title">Your Trusted IT Services Partner</h2>
             </div>
-            <div class="about-content-new">
-                <div class="about-text-centered">
-                    <div class="about-main">
-                        <p>Dhavamani Technologies is an IT services company focused on test automation, Hardware Integration, software development, and DevOps support for enterprises and tech-driven businesses.</p>
-                        <p>We combine engineering expertise, modern frameworks, and practical security practices to build digital ecosystems that are resilient, scalable, and easy to maintain.</p>
-                    </div>
-                </div>
-                
-                <div class="about-partner-section">
-                    <div class="partner-image">
-                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&h=600&fit=crop&q=80" alt="Business Partners Collaboration" crossorigin="anonymous">
-                    </div>
-                </div>
+            <div class="about-main fade-in">
+                <p>Dhavamani Technologies is an IT services company focused on test automation, Hardware Integration, software development, and DevOps support for enterprises and tech-driven businesses.</p>
+                <p>We combine engineering expertise, modern frameworks, and practical security practices to build digital ecosystems that are resilient, scalable, and easy to maintain.</p>
+            </div>
 
-                <div class="mission-vision">
-                    <div class="mv-card">
-                        <div class="mv-icon">🎯</div>
-                        <h3>Our Mission</h3>
-                        <p>To empower businesses with secure, automated, and intelligent IT solutions that reduce downtime, improve quality, and accelerate digital growth.</p>
-                    </div>
-                    <div class="mv-card">
-                        <div class="mv-icon">🚀</div>
-                        <h3>Our Vision</h3>
-                        <p>To be a trusted technology partner that helps organizations innovate confidently, operate securely, and stay ahead of new threats.</p>
-                    </div>
+            <div class="about-partner-section fade-in">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&h=600&fit=crop&q=80" alt="Business Partners Collaboration" crossorigin="anonymous">
+            </div>
+
+            <div class="mission-vision">
+                <div class="mv-card fade-in">
+                    <div class="mv-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>To empower businesses with secure, automated, and intelligent IT solutions that reduce downtime, improve quality, and accelerate digital growth.</p>
                 </div>
-                
-                <div class="about-cta">
-                    <a href="#contact" style="background:#2563eb; color:#fff; padding:12px 28px; text-decoration:none; border-radius:6px;" class="btn-primary">Talk to Our Team</a>
+                <div class="mv-card fade-in" style="transition-delay:0.1s">
+                    <div class="mv-icon">🚀</div>
+                    <h3>Our Vision</h3>
+                    <p>To be a trusted technology partner that helps organizations innovate confidently, operate securely, and stay ahead of new threats.</p>
                 </div>
+            </div>
+
+            <div class="about-cta fade-in">
+                <a href="#contact" class="btn-primary">Talk to Our Team</a>
             </div>
         </div>
     </section>
 
+    <!-- SERVICES -->
     <section id="services" class="services">
-        <div class="animated-bg"></div>
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <div class="section-tag">Our Services & Products</div>
                 <h2 class="section-title">Complete Solutions for Your Technology Needs</h2>
             </div>
             <div class="services-grid services-grid-extended">
-                <div class="service-card">
+
+                <div class="service-card fade-in">
                     <div class="service-image">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&q=80" alt="Analytics Dashboard" crossorigin="anonymous">
                     </div>
                     <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                         </svg>
                     </div>
@@ -162,12 +969,12 @@
                     <a href="#contact" class="service-link">Request a Demo →</a>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card fade-in" style="transition-delay:0.1s">
                     <div class="service-image">
                         <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop&q=80" alt="Code Development" crossorigin="anonymous">
                     </div>
                     <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="16 18 22 12 16 6"></polyline>
                             <polyline points="8 6 2 12 8 18"></polyline>
                         </svg>
@@ -179,15 +986,15 @@
                         <li>UI/UX aligned with workflows</li>
                         <li>Agile development with demos</li>
                     </ul>
-                    <a href="#contact" class="service-link">Request a Demo  →</a>
+                    <a href="#contact" class="service-link">Request a Demo →</a>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card fade-in" style="transition-delay:0.2s">
                     <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600&h=400&fit=crop&q=80" alt="DevOps Workspace" crossorigin="anonymous">
+                        <img src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600&h=400&fit=crop&q=80" alt="DevOps" crossorigin="anonymous">
                     </div>
                     <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"></circle>
                             <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
@@ -199,111 +1006,115 @@
                         <li>Environment automation</li>
                         <li>Incident response support</li>
                     </ul>
-                    <a href="#contact" class="service-link">Request a Demo  →</a>
+                    <a href="#contact" class="service-link">Request a Demo →</a>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card fade-in">
                     <div class="service-image">
-                        <img src="images/embedded-control-system.webp" alt="Embedded Control System with Touch Display">
+                        <img src="images/embedded-control-system.webp" alt="Embedded Control System"
+                             onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop&q=80'">
                     </div>
                     <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                             <line x1="8" y1="21" x2="16" y2="21"></line>
                             <line x1="12" y1="17" x2="12" y2="21"></line>
                         </svg>
                     </div>
-                    <h3>Embedded Control System with Touch Control Display Unit</h3>
-                    <p>The Embedded Control System with Touch Control Display Unit is a highly customizable and versatile solution designed to adapt to your specific needs. With an advanced touch-screen interface and robust performance, this device offers unparalleled control and monitoring capabilities for diverse applications.</p>
-                    <a href="#contact" class="service-link">Request a Demo  →</a>
+                    <h3>Embedded Control System with Touch Control Display</h3>
+                    <p>A highly customizable solution with an advanced touch-screen interface offering unparalleled control and monitoring capabilities for diverse applications.</p>
+                    <a href="#contact" class="service-link">Request a Demo →</a>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card fade-in" style="transition-delay:0.1s">
                     <div class="service-image">
-                        <img src="images/hydro-power-controllers.webp" alt="Micro Hydro Power Plant Controllers">
+                        <img src="images/hydro-power-controllers.webp" alt="Micro Hydro Power Plant Controllers"
+                             onerror="this.src='https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop&q=80'">
                     </div>
                     <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                         </svg>
                     </div>
                     <h3>Micro Hydro Power Plant Controller System</h3>
-                    <p>The Embedded Control System with Touch Control Display Unit is a highly customizable and versatile solution designed to adapt to your specific needs. With an advanced touch-screen interface and robust performance, this device offers unparalleled control and monitoring capabilities for diverse applications.</p>
+                    <p>Robust control and monitoring system for micro hydro power plants with advanced touch-screen interface and customizable performance settings.</p>
                     <a href="#contact" class="service-link">Request a Demo →</a>
                 </div>
+
             </div>
         </div>
     </section>
 
+    <!-- INDUSTRIES -->
     <section id="industries" class="industries">
-        <div class="animated-bg"></div>
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <div class="section-tag">Industries We Serve</div>
                 <h2 class="section-title">Supporting Critical Industries</h2>
             </div>
             <div class="industries-grid">
-                <div class="industry-card">
+                <div class="industry-card fade-in">
                     <div class="industry-image">
                         <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop&q=80" alt="Technology" crossorigin="anonymous">
                     </div>
-                    <div class="industry-icon">💻</div>
+                    <span class="industry-icon">💻</span>
                     <h3>Technology & SaaS</h3>
                 </div>
-                <div class="industry-card">
+                <div class="industry-card fade-in" style="transition-delay:0.05s">
                     <div class="industry-image">
                         <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop&q=80" alt="Healthcare" crossorigin="anonymous">
                     </div>
-                    <div class="industry-icon">🏥</div>
+                    <span class="industry-icon">🏥</span>
                     <h3>Healthcare</h3>
                 </div>
-                <div class="industry-card">
+                <div class="industry-card fade-in" style="transition-delay:0.1s">
                     <div class="industry-image">
                         <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop&q=80" alt="Finance" crossorigin="anonymous">
                     </div>
-                    <div class="industry-icon">💰</div>
+                    <span class="industry-icon">💰</span>
                     <h3>FinTech</h3>
                 </div>
-                <div class="industry-card">
+                <div class="industry-card fade-in" style="transition-delay:0.15s">
                     <div class="industry-image">
                         <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop&q=80" alt="Manufacturing" crossorigin="anonymous">
                     </div>
-                    <div class="industry-icon">🏭</div>
+                    <span class="industry-icon">🏭</span>
                     <h3>Manufacturing</h3>
                 </div>
-                <div class="industry-card">
+                <div class="industry-card fade-in" style="transition-delay:0.2s">
                     <div class="industry-image">
                         <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop&q=80" alt="E-commerce" crossorigin="anonymous">
                     </div>
-                    <div class="industry-icon">🛒</div>
+                    <span class="industry-icon">🛒</span>
                     <h3>E-commerce</h3>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- WHY US -->
     <section id="why-us" class="why-us">
-        <div class="animated-bg"></div>
         <div class="container">
-            <div class="section-header">
+            <div class="section-header fade-in">
                 <div class="section-tag">Why Choose Us</div>
                 <h2 class="section-title">Business Outcomes, Not Just Technology</h2>
             </div>
-            <div class="company-showcase">
-                <img src="images/cloud-storage-networking-new.jpg" alt="Cloud Storage & Networking Infrastructure - Smart City">
+            <div class="company-showcase fade-in">
+                <img src="images/cloud-storage-networking-new.jpg" alt="Cloud Storage & Networking Infrastructure"
+                     onerror="this.src='https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=500&fit=crop&q=80'">
             </div>
             <div class="why-grid">
-                <div class="why-card">
+                <div class="why-card fade-in">
                     <div class="why-number">01</div>
                     <h3>Quality & Security</h3>
-                    <p>Combine test automation and Hardware integration to reduce defects and security incidents.</p>
+                    <p>Combine test automation and hardware integration to reduce defects and security incidents.</p>
                 </div>
-                <div class="why-card">
+                <div class="why-card fade-in" style="transition-delay:0.1s">
                     <div class="why-number">02</div>
                     <h3>Flexible Models</h3>
                     <p>Start small with a pilot, then scale to long-term partnership if we prove value.</p>
                 </div>
-                <div class="why-card">
+                <div class="why-card fade-in" style="transition-delay:0.2s">
                     <div class="why-number">03</div>
                     <h3>Enterprise Experience</h3>
                     <p>Our team has worked with enterprises that demand robust, compliant solutions.</p>
@@ -312,10 +1123,12 @@
         </div>
     </section>
 
+    <!-- FOOTER / CONTACT -->
     <footer id="contact">
         <div class="footer-content">
             <div class="footer-brand">
-                <img src="images/dhavamani-logo-transparent.png" alt="Dhavamani Technologies">
+                <img src="images/dhavamani-logo-transparent.png" alt="Dhavamani Technologies"
+                     onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span style=\'font-family:Sora,sans-serif;font-weight:800;font-size:1rem;color:#fff\'>Dhavamani Technologies</span>')">
                 <p>Empowering businesses with secure, automated, and intelligent IT solutions that reduce downtime, improve quality, and accelerate digital growth.</p>
             </div>
             <div class="footer-column">
@@ -341,15 +1154,50 @@
                 <ul class="footer-links">
                     <li>📞 <a href="tel:+919445125622">+91 94451 25622</a></li>
                     <li>📧 <a href="mailto:nava@dhava.in">nava@dhava.in</a></li>
-                    <li style="color: #ffffff !important;">📍 79, P.M Colony, Rathanapuri,<br>&nbsp;&nbsp;&nbsp;&nbsp;Coimbatore, India</li>
+                    <li>📍 79, P.M Colony, Rathanapuri,<br>&nbsp;&nbsp;&nbsp;&nbsp;Coimbatore, India</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Dhavamani Technologies. All Rights Reserved. Engineered with Precision.</p>
+            <p>© 2026 Dhavamani Technologies. All Rights Reserved. Engineered with Precision.</p>
         </div>
-         </footer>
+    </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Scroll fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Immediately show hero elements
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+            setTimeout(() => el.classList.add('visible'), 100);
+        });
+    </script>
+
 </body>
 </html>
