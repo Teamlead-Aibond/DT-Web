@@ -806,6 +806,27 @@ footer::before {
     position: relative;
     z-index: 1;
 }
+/* LinkedIn Button */
+.linkedin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 9px 18px;
+    background-color: #0A66C2;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.linkedin-link:hover {
+    background-color: #004f9e;
+    transform: translateY(-2px);
+}
 
 @keyframes fadeIn {
     from { opacity: 0; }
